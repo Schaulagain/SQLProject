@@ -15,12 +15,46 @@ erDiagram
     LOCATION_PROVISION ||--o{ FESTIVAL_PROVISION : "allocated as"
     FESTIVALS ||--o{ FESTIVAL_STAFF : employs
 
-    ADDRESSES { string street string city string country }
-    LOCATIONS { number location_id PK string location_name string location_area ref location_address }
-    FESTIVALS { number festival_id PK number location_id FK string festival_name number festival_duration }
-    LOCATION_PROVISION { number location_provision_id PK number location_id FK string provision_type number price number quantity }
-    FESTIVAL_PROVISION { number festival_id PK, FK number location_provision_id PK, FK string provision_type number price number quantity }
-    FESTIVAL_STAFF { number staff_id PK number festival_id FK string email number salary varray contact nested_table social_media date date_of_recruitment }
+    ADDRESSES {
+        string street
+        string city
+        string country
+    }
+    LOCATIONS {
+        number location_id PK
+        string location_name
+        string location_area
+        ref location_address
+    }
+    FESTIVALS {
+        number festival_id PK
+        number location_id FK
+        string festival_name
+        number festival_duration
+    }
+    LOCATION_PROVISION {
+        number location_provision_id PK
+        number location_id FK
+        string provision_type
+        number price
+        number quantity
+    }
+    FESTIVAL_PROVISION {
+        number festival_id PK, FK
+        number location_provision_id PK, FK
+        string provision_type
+        number price
+        number quantity
+    }
+    FESTIVAL_STAFF {
+        number staff_id PK
+        number festival_id FK
+        string email
+        number salary
+        varray contact
+        nested_table social_media
+        date date_of_recruitment
+    }
 ```
 
 ## What it demonstrates
