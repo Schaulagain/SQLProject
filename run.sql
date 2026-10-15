@@ -1,23 +1,26 @@
---@C:\Users\USER\Desktop\dbas\run.txt
+-- Runs the whole project in order. From SQL*Plus or SQLcl, in this folder:
+--   @run.sql
+-- (@@ resolves each script relative to this file, so it works from any machine.)
 
+SET SERVEROUTPUT ON
 
-@C:\Users\USER\Desktop\dbas\create_5.txt
-@C:\Users\USER\Desktop\dbas\seq_5.txt
-@C:\Users\USER\Desktop\dbas\alter_5.txt
---@C:\Users\USER\Desktop\dbas\insert_5.txt
-@C:\Users\USER\Desktop\dbas\queriesDB_5.txt
-@C:\Users\USER\Desktop\dbas\unnamedblock_5.txt
-@C:\Users\USER\Desktop\dbas\functionsandprocedures_5.txt
---@C:\Users\USER\Desktop\dbas\test_script_function.txt
-@C:\Users\USER\Desktop\dbas\package_5.sql
-@C:\Users\USER\Desktop\dbas\cursor_5.txt
---@C:\Users\USER\Desktop\dbas\test_script_cursors.txt
-@C:\Users\USER\Desktop\dbas\triggers_5.sql
---@C:\Users\USER\Desktop\dbas\test_script_triggers.txt
-@C:\Users\USER\Desktop\dbas\records_5.sql
---@C:\Users\USER\Desktop\dbas\test_script_records.txt
+@@create_5.sql
+@@seq_5.sql
+@@alter_5.sql
+@@insert_5.sql
+@@queriesDB_5.sql
+@@unnamedblock_5.sql
+@@functionsandprocedures_5.sql
+@@package_5.sql
+@@cursor_5.sql
+@@triggers_5.sql
+@@records_5.sql
 
+-- Optional test scripts:
+-- @@test_script_function.sql
+-- @@test_script_cursors.sql
+-- @@test_script_triggers.sql
+-- @@test_script_records.sql
 
-
---@C:\Users\USER\Desktop\dbas\drop_5.txt
-
+-- To remove everything again:
+-- @@drop_5.sql
