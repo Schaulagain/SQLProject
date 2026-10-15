@@ -56,7 +56,7 @@ SHOW ERRORS;
 CREATE OR REPLACE TRIGGER trig_salary
 BEFORE INSERT OR UPDATE OF salary ON festival_staff
 FOR EACH ROW
-	WHEN(NEW.salary<50000)
+	WHEN(NEW.salary>50000)
 BEGIN
 	RAISE_APPLICATION_ERROR(-20001,'ERROR-Staff cannot have salary more than 50,000');	
 END trig_salary;
@@ -68,12 +68,12 @@ SHOW ERRORS;
 --INSERTING into festival_staff
 INSERT INTO festival_staff(staff_id, festival_id, first_name, last_name, email, salary)
 VALUES(111, 100, 'RAM', 'SHRESTHA', 'RAM@gmail.COM', 60000.00);
---Inserted successfully!
+--ERROR-Staff cannot have salary more than 50,000
 
 --INSERTING into festival_staff
 INSERT INTO festival_staff(staff_id, festival_id, first_name, last_name, email, salary)
 VALUES(112, 100, 'RITA', 'SHRESTHA', 'RITASHRESTHA@gmail.COM', 40000.00);
---ERROR-Staff cannot have salary more than 50,000
+--Inserted successfully!
 
 --CREATING TRIGGER using IF, ELSE IF AND ELSE
 CREATE OR REPLACE TRIGGER trig_festival
@@ -169,7 +169,8 @@ BEGIN
   );
   COMMIT;
 END;
-/SHOW ERRORS;
+/
+SHOW ERRORS;
 
 --CREATING trigger trig_logoff_event_schema_table
 CREATE OR REPLACE TRIGGER trig_logoff_event_schema_table
