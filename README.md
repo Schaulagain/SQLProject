@@ -1,8 +1,8 @@
 # Festival Management Database (Oracle PL/SQL)
 
-An Oracle database for organising festivals: venues, the supplies each venue provides, festival staff and their contact details. It goes beyond plain tables to use Oracle's **object-relational** features, with a full set of PL/SQL procedures, functions, cursors, a package and triggers on top.
+An Oracle database for organising festivals. It stores venues, what each venue can supply, and festival staff with their contact details. I made it for a database module at university in 2020. The module was about Oracle's object-relational features, so it uses object types and collections rather than only plain tables, plus a fair amount of PL/SQL.
 
-Built as a university database module project (2020). In 2026 I fixed two trigger bugs and made the scripts runnable anywhere.
+In 2026 I fixed two bugs in the triggers and changed the scripts so they run on any machine.
 
 ## Data model
 
@@ -57,32 +57,22 @@ erDiagram
     }
 ```
 
-## What it demonstrates
+## What's in the scripts
 
-**Object-relational design** (`create_5.sql`)
-- User-defined object types: `address_type`, `contact_type`, `social_media_type`
-- An **object table** (`addresses OF address_type`) referenced through a scoped `REF`
-- A **VARRAY** of contact numbers and a **nested table** of social media accounts stored inside `festival_staff`
-
-**Constraints and sequences** (`alter_5.sql`, `seq_5.sql`)
-- Primary keys, including a composite key on `festival_provision`, foreign keys, and sequences for generated IDs
-
-**PL/SQL**
-- Parameterised procedures and functions using `%TYPE` anchoring (`functionsandprocedures_5.sql`)
-- Implicit and explicit cursors (`cursor_5.sql`), records and `%ROWTYPE` (`records_5.sql`)
-- A package with a public function and procedure (`package_5.sql`)
-- Anonymous blocks (`unnamedblock_5.sql`)
-
-**Triggers** (`triggers_5.sql`)
-- Validation: email format, salary cap (rejects salaries above 50,000), no recruitment dates in the future
-- Auditing: logs which user inserted, updated or deleted festivals, and before/after salary changes
-- Schema-level `AFTER LOGON` / `BEFORE LOGOFF` triggers recording sessions in an audit table
-
-**Queries** (`queriesDB_5.sql`): joins, subqueries, aggregates and queries over the object types and collections.
+| File | Contents |
+| --- | --- |
+| `create_5.sql` | Object types (`address_type`, `contact_type`, `social_media_type`), an object table of addresses referenced with a scoped `REF`, and `festival_staff` with a VARRAY of phone numbers and a nested table of social media accounts |
+| `alter_5.sql`, `seq_5.sql` | Primary and foreign keys (`festival_provision` has a composite key) and sequences for IDs |
+| `functionsandprocedures_5.sql` | Procedures and functions with parameters, using `%TYPE` |
+| `cursor_5.sql`, `records_5.sql` | Implicit and explicit cursors, records, `%ROWTYPE` |
+| `package_5.sql` | A package with a public function and procedure |
+| `unnamedblock_5.sql` | Anonymous blocks |
+| `triggers_5.sql` | Checks on email format, a salary cap of 50,000 and recruitment dates not in the future; audit logs for changes to festivals and salaries; `AFTER LOGON` / `BEFORE LOGOFF` triggers that record sessions |
+| `queriesDB_5.sql` | Joins, subqueries, aggregates, and queries over the object types and collections |
 
 ## Running it
 
-Tested on **Oracle Database 23ai Free**. The easiest way to get one is Docker:
+I tested it on Oracle Database 23ai Free. The quickest way to get one is with Docker:
 
 ```sh
 docker run -d --name oracle -p 1521:1521 \
@@ -93,9 +83,9 @@ docker run -d --name oracle -p 1521:1521 \
 docker exec -it oracle bash -c "cd /work && sqlplus five/five@FREEPDB1 @run.sql"
 ```
 
-`run.sql` runs every script in order. A few scripts are interactive and prompt for values (for example `&location_id` and `&festival_name`). The optional test scripts and `drop_5.sql` (removes everything) are listed at the bottom of `run.sql`.
+`run.sql` runs every script in order. Some of them ask you to type in values, like `&location_id` and `&festival_name`. The test scripts and `drop_5.sql`, which deletes everything, are listed at the bottom of `run.sql` if you want them.
 
-## Fixes made in 2026
-- `trig_salary` checked `salary < 50000`, so it rejected every salary *under* the cap. It now rejects salaries above it, as its error message intended.
-- The `AFTER LOGON` trigger's `/` terminator shared a line with `SHOW ERRORS`, which SQL\*Plus doesn't recognise.
-- `run.sql` pointed at `.txt` files under a Windows desktop path; it now uses relative `@@` paths.
+## Fixed in 2026
+- `trig_salary` checked `salary < 50000`, so it blocked every salary *under* the cap instead of over it. The error message said what it was meant to do, so I changed the check to match.
+- The `/` at the end of the `AFTER LOGON` trigger was on the same line as `SHOW ERRORS`. SQL\*Plus doesn't accept that.
+- `run.sql` pointed at `.txt` files on my old Windows desktop. It now uses relative `@@` paths.
