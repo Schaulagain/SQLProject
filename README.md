@@ -1,6 +1,6 @@
 # Festival Management Database (Oracle PL/SQL)
 
-An Oracle database for organising festivals. It stores venues, what each venue can supply, and festival staff with their contact details. I made it for a database module at university in 2020. The module was about Oracle's object-relational features, so it uses object types and collections rather than only plain tables, plus a fair amount of PL/SQL.
+An Oracle database for organising festivals. It stores venues, what each venue can supply, and festival staff with their contact details. I made it for a database module at university in 2020. The module was about Oracle's object-relational features, so it uses object types and collections, plus a fair amount of PL/SQL.
 
 In 2026 I fixed two bugs in the triggers and changed the scripts so they run on any machine.
 
