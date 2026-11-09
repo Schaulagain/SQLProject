@@ -1,8 +1,8 @@
 # Festival Management Database (Oracle PL/SQL)
 
-An Oracle database for organising festivals. It stores venues, what each venue can supply, and festival staff with their contact details. I made it for a database module at university in 2020. The module was about Oracle's object-relational features, so it uses object types and collections, plus a fair amount of PL/SQL.
+An Oracle database for organising festivals. It stores locations, the provision each location can supply, which of it goes to each festival, and the festival staff with their contact details. [`GLOSSARY.md`](GLOSSARY.md) pins down those words. I made it for a database module at university in 2020. The module was about Oracle's object-relational features, so it uses object types and collections, plus a fair amount of PL/SQL.
 
-In 2026 I fixed two bugs in the triggers and changed the scripts so they run on any machine.
+In 2026 two trigger bugs were fixed and the scripts were changed to run on any machine.
 
 ## Data model
 
@@ -72,7 +72,7 @@ erDiagram
 
 ## Running it
 
-I tested it on Oracle Database 23ai Free. The quickest way to get one is with Docker:
+It's tested on Oracle Database 23ai Free. The quickest way to get one is with Docker:
 
 ```sh
 docker run -d --name oracle -p 1521:1521 \
@@ -86,7 +86,7 @@ docker exec -it oracle bash -c "cd /work && sqlplus five/five@FREEPDB1 @run.sql"
 `run.sql` runs every script in order. Some of them ask you to type in values, like `&location_id` and `&festival_name`. The test scripts and `drop_5.sql`, which deletes everything, are listed at the bottom of `run.sql` if you want them.
 
 ## Fixed in 2026
-- `trig_salary` checked `salary < 50000`, so it blocked every salary *under* the cap instead of over it. The error message said what it was meant to do, so I changed the check to match.
+- `trig_salary` checked `salary < 50000`, so it blocked every salary *under* the cap. The error message said it was meant to block salaries over the cap, so the check now matches that.
 - The `/` at the end of the `AFTER LOGON` trigger was on the same line as `SHOW ERRORS`. SQL\*Plus doesn't accept that.
 - `run.sql` pointed at `.txt` files on my old Windows desktop. It now uses relative `@@` paths.
 
