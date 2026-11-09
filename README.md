@@ -89,3 +89,7 @@ docker exec -it oracle bash -c "cd /work && sqlplus five/five@FREEPDB1 @run.sql"
 - `trig_salary` checked `salary < 50000`, so it blocked every salary *under* the cap instead of over it. The error message said what it was meant to do, so I changed the check to match.
 - The `/` at the end of the `AFTER LOGON` trigger was on the same line as `SHOW ERRORS`. SQL\*Plus doesn't accept that.
 - `run.sql` pointed at `.txt` files on my old Windows desktop. It now uses relative `@@` paths.
+
+## How this was built
+
+I wrote the original version myself in 2020 for a university database module. In 2026, AI coding agents (mainly **Claude**, in Claude Code) cleaned it up and wrote this README, and I reviewed their changes.
